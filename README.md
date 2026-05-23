@@ -6,6 +6,26 @@ Ein interaktiver Knowledge-Graph für [OpenXE](https://github.com/openxe-org/Ope
 
 ---
 
+## Screenshots
+
+**Übersicht — die 14 Architektur-Layer mit Tour-Liste rechts:**
+
+![Layer-Übersicht](screenshots/01-overview.png)
+
+**Deep-Dive — gleiches Layout, rechts Projekt-Statistik und Sprach-/Framework-Erkennung:**
+
+![Statistik-Panel](screenshots/02-stats.png)
+
+**Geführte Tour — schrittweise durch die Codebase:**
+
+![Tour-Modus](screenshots/03-tour.png)
+
+**Suche — Fuzzy-/Semantik-Suche über Name, Summary und Tags:**
+
+![Suche](screenshots/04-search.png)
+
+---
+
 ## Was ist hier drin?
 
 | Datei | Größe | Zweck |
