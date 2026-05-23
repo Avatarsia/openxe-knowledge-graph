@@ -136,6 +136,57 @@ Der Skill startet einen lokalen Vite-Server und gibt eine URL mit `?token=…` a
 
 ---
 
+## Alternative — ohne Claude Code (Node + Vite direkt)
+
+Der Dashboard ist eine reine Vite/React-App ([`@xyflow/react`](https://reactflow.dev) fürs Graph-Rendering). Der Claude-Code-Skill ist nur ein Bequemlichkeits-Wrapper, der die zwei darunterliegenden Befehle (`pnpm install` + `vite dev`) automatisiert. Wer kein Claude Code installieren möchte, kann das Dashboard genauso direkt starten — gleiche UI, gleiche Daten.
+
+### Voraussetzungen
+
+- Node.js ≥ 22
+- pnpm ≥ 10
+- Git
+
+### Schritte
+
+```bash
+# 1) Plugin-Repo klonen (enthaelt den Dashboard-Source als pnpm-Workspace)
+git clone https://github.com/Lum1104/Understand-Anything.git
+cd Understand-Anything
+
+# 2) Abhaengigkeiten installieren + Core-Paket bauen
+pnpm install
+# Hinweis fuer Windows: pnpm prueft vor pnpm run X den Deps-Status und schlaegt
+# wegen ignorierter nativer tree-sitter Build-Scripts fehl. Daher tsc direkt:
+pnpm --filter @understand-anything/core --config.verify-deps-before-run=false exec tsc
+
+# 3) Diesen Graph-Repo klonen
+git clone https://github.com/Avatarsia/openxe-knowledge-graph.git ../openxe-graph
+
+# 4) Graph-Artefakte am vom Dashboard erwarteten Ort platzieren
+#    (das Dashboard sucht in $GRAPH_DIR/.understand-anything/)
+mkdir -p ../graph-mount/.understand-anything
+cp ../openxe-graph/knowledge-graph.json \
+   ../openxe-graph/meta.json \
+   ../openxe-graph/.understandignore \
+   ../graph-mount/.understand-anything/
+
+# 5) Dashboard starten — GRAPH_DIR per absolutem Pfad setzen
+cd packages/dashboard
+GRAPH_DIR="$(cd ../../../graph-mount && pwd)" pnpm dev
+```
+
+> **Windows-Pfade:** Falls du Git-Bash benutzt, verwendet pnpm intern `node.exe`, das mit MSYS-Pfaden (`/c/Users/...`) nicht klarkommt. Setze `GRAPH_DIR` mit einem Windows-Pfad (z.B. `GRAPH_DIR="C:/Users/.../graph-mount" pnpm dev`).
+
+Im Terminal erscheint dann:
+
+```
+🔑  Dashboard URL: http://127.0.0.1:5173/?token=<hex>
+```
+
+Diese URL **inklusive `?token=…`** im Browser öffnen — ohne den Token greift das Access-Gate. Stoppen mit `Ctrl+C` im Terminal.
+
+---
+
 ## Scope — was wurde analysiert?
 
 **Eingeschlossen** (4.492 Dateien):
