@@ -1,0 +1,21 @@
+# .understandignore — Stufe B (PHP-Kerncode + app-JS + Configs)
+# Built-in defaults (vendor/, node_modules/, .git/, images, fonts, *.min.js, *.map ...) gelten zusaetzlich.
+
+# --- Gebuendelte Fremd-JS-Libs (kein OpenXE-Code) ---
+www/js/
+www/dist/
+
+# --- Smarty/Freemarker Templates (reines Markup) ---
+*.tpl
+*.ftl
+
+# --- Sonstiges Rauschen ---
+backup/
+LICENSES/
+doc/
+
+# --- aus .gitignore (Laufzeit-/Instanzdaten) ---
+conf/user.inc.php
+conf/user_defined.php
+userdata/
+www/cache/
